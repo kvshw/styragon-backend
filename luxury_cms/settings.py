@@ -179,7 +179,12 @@ ADMIN_INDEX_TITLE = "Welcome to Styragon CMS"
 
 # Production settings
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,*.up.railway.app').split(',')
+
+# Railway specific settings
+if os.getenv('RAILWAY_ENVIRONMENT'):
+    ALLOWED_HOSTS.extend(['*.up.railway.app'])
+    CSRF_TRUSTED_ORIGINS.extend(['https://*.up.railway.app'])
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
